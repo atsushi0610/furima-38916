@@ -52,7 +52,7 @@
 
 | Column       | Type       | Options                        |
 | ------------ | -----------| ------------------------------ |
-| post_code    | integer    | null: false                    |
+| post_code    | string     | null: false                    |
 | region_id    | integer    | null: false                    |
 | city         | string     | null: false                    |
 | block        | string     | null: false                    |
