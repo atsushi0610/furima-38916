@@ -17,12 +17,12 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
-      it 'titleが空だと保存できない' do
+      it 'titleが空では保存できない' do
         @item.title = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Title can't be blank")
       end
-      it 'descriptionが紐付いていないと保存できない' do
+      it 'descriptionが空では保存できない' do
         @item.description = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Description can't be blank")
@@ -32,13 +32,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      it 'condition_idが紐付いていないと保存できない' do
+      it 'category_idが1の時は保存できない' do
+        @item.category_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+      it 'condition_idが空では保存できない' do
         @item.condition_id = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
-      it 'postage_idが紐付いていないと保存できない' do
+      it 'condition_idが1の時は保存できない' do
+        @item.condition_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it 'postage_idが空では保存できない' do
         @item.postage_id = ""
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Postage can't be blank")
+      end
+      it 'postage_idが1の時は保存できない' do
+        @item.postage_id = "1"
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
@@ -47,8 +62,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Region can't be blank")
       end
+      it 'region_idが1の時は保存できない' do
+        @item.region_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Region can't be blank")
+      end
       it 'duration_idが空では保存できない' do
         @item.duration_id = ""
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Duration can't be blank")
+      end
+      it 'duration_idが1の時は保存できない' do
+        @item.duration_id = "1"
         @item.valid?
         expect(@item.errors.full_messages).to include("Duration can't be blank")
       end
