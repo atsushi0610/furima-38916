@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   #before_action :move_to_index, except: [:index, :show]
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!, except: :index
 
   def index
     #@items = Item.order("created_at DESC")
