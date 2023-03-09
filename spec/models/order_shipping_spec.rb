@@ -59,6 +59,11 @@ RSpec.describe OrderShipping, type: :model do
       end
       it 'phone_numberが11桁を超えると保存できないこと' do
         @order_shipping.phone_number = "090123456789"
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
+      end
+      it 'phone_numberが全角だと保存できないこと' do
+        @order_shipping.phone_number = "０９０１２３４５６７８"
         binding.pry
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")

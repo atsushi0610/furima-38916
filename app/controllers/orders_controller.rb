@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
 
   def create
     @item = Item.find(params[:item_id])
-    @item.save
     @order_shipping = OrderShipping.new(order_params)
     if @order_shipping.valid?
       @order_shipping.save
