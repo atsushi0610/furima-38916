@@ -59,7 +59,6 @@ RSpec.describe OrderShipping, type: :model do
       end
       it 'phone_numberは数値のみ保存できない' do
         @order_shipping.phone_number = "111-111-111"
-        binding.pry
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
