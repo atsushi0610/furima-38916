@@ -22,49 +22,59 @@ RSpec.describe OrderShipping, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it 'post_codeが空だと保存できないこと' do
+      it "tokenが空では登録できない" do
+        @order_shipping.token = nil
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'post_codeが空だと保存できない' do
         @order_shipping.post_code = ""
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Post code can't be blank")
       end
-      it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
+      it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できない' do
         @order_shipping.post_code = "1111111"
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
-      it 'region_idを選択していないと保存できないこと' do
+      it 'region_idを選択していないと保存できない' do
         @order_shipping.region_id = ""
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Region can't be blank")
       end
-      it 'cityが空だと保存できないこと' do
+      it 'cityが空だと保存できない' do
         @order_shipping.city = ""
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("City can't be blank")
       end
-      it 'blockが空だと保存できないこと' do
+      it 'blockが空だと保存できない' do
         @order_shipping.block = ""
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Block can't be blank")
       end
-      it 'phone_numberが空だと保存できないこと' do
+      it 'phone_numberが空だと保存できない' do
         @order_shipping.phone_number = ""
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが10桁未満だと保存できないこと' do
+      it 'phone_numberは数値のみ保存できない' do
+        @order_shipping.phone_number = "111-111-111"
+        binding.pry
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
+      end
+      it 'phone_numberが10桁未満だと保存できない' do
         @order_shipping.phone_number = "090123456"
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
-      it 'phone_numberが11桁を超えると保存できないこと' do
+      it 'phone_numberが11桁を超えると保存できない' do
         @order_shipping.phone_number = "090123456789"
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
-      it 'phone_numberが全角だと保存できないこと' do
+      it 'phone_numberが全角だと保存できない' do
         @order_shipping.phone_number = "０９０１２３４５６７８"
-        binding.pry
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid.")
       end
